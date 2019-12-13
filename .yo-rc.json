@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.ippon.dferguson"
+    },
+    "jhipsterVersion": "6.4.1",
+    "applicationType": "monolith",
+    "baseName": "eventsourcingdemo",
+    "packageName": "com.ippon.dferguson",
+    "packageFolder": "com/ippon/dferguson",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MmE0OWNjMjZmZTM2Yjc3ZjBjMWJmNjMzMTkxMDM3MWEyNTI4NTIzYjk5MjQxY2VlMjllNGY2YjQwMGJiZDA0YjAyZDg4ZmU2YjhmYTRlMGRlNjA4NTRlNTE5MWUyMTk3MTM5MWI4NTgyNTEyMWRlYmI5MThiZTQ3OTI3OGE3MzY=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}

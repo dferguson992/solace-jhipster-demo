@@ -5,6 +5,7 @@ import com.ippon.dferguson.config.Constants;
 import com.ippon.dferguson.domain.User;
 import com.ippon.dferguson.repository.UserRepository;
 import com.ippon.dferguson.service.dto.UserDTO;
+import com.ippon.dferguson.service.mapper.UserMapper;
 import com.ippon.dferguson.service.util.RandomUtil;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -129,6 +130,15 @@ public class UserServiceIT {
         Optional<User> maybeUser = userService.completePasswordReset("johndoe2", user.getResetKey());
         assertThat(maybeUser).isNotPresent();
         userRepository.delete(user);
+    }
+
+    @Test
+    @Transactional
+    public void assertThatUserCanBeRegistered() {
+        UserMapper mapper = new UserMapper();
+        UserDTO userDTO = mapper.userToUserDTO(user);
+        User userObject = userService.registerUser(userDTO, "TEST_password123");
+        assertThat(userObject.getId().equals(user.getId()));
     }
 
     @Test

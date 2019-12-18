@@ -10,6 +10,7 @@ import com.ippon.dferguson.security.SecurityUtils;
 import com.ippon.dferguson.service.dto.UserDTO;
 import com.ippon.dferguson.service.util.RandomUtil;
 
+import com.solacesystems.jcsmp.JCSMPException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -42,11 +43,14 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final SolacePublisherService solacePublisherService;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, SolacePublisherService solacePublisherService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.solacePublisherService = solacePublisherService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -119,6 +123,13 @@ public class UserService {
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+        try {
+            solacePublisherService.connect();
+            solacePublisherService.publish("WELCOME TO THE PLATFORM", "USER/CREATE/" + newUser.getId());
+            solacePublisherService.disconnect();
+        } catch(JCSMPException e){
+            log.error("Could not publish the User Create message!", e);
+        }
         return newUser;
     }
 
@@ -160,6 +171,13 @@ public class UserService {
         userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
+        try {
+            solacePublisherService.connect();
+            solacePublisherService.publish("WELCOME TO THE PLATFORM", "USER/CREATE/" + userDTO.getId());
+            solacePublisherService.disconnect();
+        } catch(JCSMPException e){
+            log.error("Could not publish the User Create message!", e);
+        }
         return user;
     }
 

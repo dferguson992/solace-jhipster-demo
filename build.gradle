@@ -259,6 +259,7 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-library"
     testImplementation "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
+	compile "com.solacesystems:sol-jcsmp:10.2.0"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
